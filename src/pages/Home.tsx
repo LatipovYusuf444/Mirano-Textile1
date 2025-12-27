@@ -4,6 +4,8 @@ import FeaturedServices from "@/components/FeaturedServices"
 import Advange from "@/components/Advange"
 import Main from "@/components/Main"
 import Figures from "@/components/Figures"
+import Testimonials from "@/components/Testimonials"
+import Footer from "@/components/Footer"
 
 const Home = ({ onCartOpen }: { onCartOpen: () => void }) => {
   return (
@@ -14,6 +16,8 @@ const Home = ({ onCartOpen }: { onCartOpen: () => void }) => {
       <Main />
       <Advange />
       <Figures />
+      <Testimonials/>
+      <Footer/>
     </>
   )
 }
