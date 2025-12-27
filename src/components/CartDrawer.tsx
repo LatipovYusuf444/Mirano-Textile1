@@ -5,7 +5,11 @@ import { sendToTelegram } from "@/lib/telegram"
 import { Button } from "./ui/button"
 import { useState } from "react"
 
-const CartDrawer = () => {
+interface CartDrawerProps {
+  onClose: () => void
+}
+
+const CartDrawer = ({ onClose }: CartDrawerProps) => {
   const { items } = useSelector((state: RootState) => state.cart)
   const dispatch = useDispatch()
   const [success, setSuccess] = useState(false)
@@ -30,13 +34,25 @@ const CartDrawer = () => {
         <p className="mt-2 text-gray-500">
           Tez orada siz bilan bog‘lanamiz
         </p>
+
+        <Button className="mt-4" onClick={onClose}>
+          Yopish
+        </Button>
       </div>
     )
   }
 
   return (
     <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">🛒 Karzinka</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">🛒 Karzinka</h2>
+        <button
+          onClick={onClose}
+          className="text-sm text-gray-500 hover:text-red-500"
+        >
+          ✕
+        </button>
+      </div>
 
       {items.length === 0 && (
         <p className="text-gray-500">Karzinka bo‘sh</p>
