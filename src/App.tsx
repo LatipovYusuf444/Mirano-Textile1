@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom"
 import { useState } from "react"
 import Home from "./pages/Home"
-import CartDrawer from "./components/CartDrawer"
 import Catalog from "./pages/Catalog"
+import CartDrawer from "./components/CartDrawer"
 
 function App() {
   const [cartOpen, setCartOpen] = useState(false)

@@ -38,13 +38,19 @@ export const product = [
   {
     id: "7",
     title: "Premium Fabric",
-    price: 180,
+    price: 240,
     image: "src/assets/svg/foto6.jpg",
   },
   {
-    id: "8",  
+    id: "8",
     title: "Premium Fabric",
     price: 180,
+    image: "src/assets/svg/foto1.webp",
+  },
+  {
+    id: "9",
+    title: "Premium Fabric",
+    price: 280,
     image: "src/assets/svg/foto1.webp",
   },
 ]
