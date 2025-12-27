@@ -3,6 +3,7 @@ import About from "@/components/About"
 import FeaturedServices from "@/components/FeaturedServices"
 import Advange from "@/components/Advange"
 import Main from "@/components/Main"
+import Figures from "@/components/Figures"
 
 const Home = ({ onCartOpen }: { onCartOpen: () => void }) => {
   return (
@@ -12,6 +13,7 @@ const Home = ({ onCartOpen }: { onCartOpen: () => void }) => {
       <FeaturedServices />
       <Main />
       <Advange />
+      <Figures />
     </>
   )
 }
