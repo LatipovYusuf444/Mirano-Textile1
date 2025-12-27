@@ -8,141 +8,99 @@ import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 
 const Navbar = ({ onCartOpen }: { onCartOpen: () => void }) => {
-  const count = useSelector((state: RootState) =>
-    state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
+  const count = useSelector(
+    (state: RootState) =>
+      state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
   )
 
   return (
     <div
-      className="
-        min-h-screen w-full
-        bg-cover bg-center bg-no-repeat
-        flex flex-col
-      "
+      className="relative min-h-screen w-full bg-cover bg-center bg-no-repeat flex flex-col"
       style={{ backgroundImage: `url(${bgimage})` }}
     >
-      {/* ===== HEADER ===== */}
-      <div className="flex items-center justify-between px-4 md:px-10 py-5">
+      {/* LIGHT OVERLAY (cheap) */}
+      <div className="absolute inset-0 bg-black/50" />
+
+      {/* HEADER */}
+      <header className="relative z-10 flex items-center justify-between px-4 md:px-10 py-5">
+        {/* LOGO (only fade) */}
         <motion.img
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="w-14 h-14 md:w-20 md:h-20 object-contain"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
           src={logo}
           alt="Mirano Logo"
+          className="w-14 h-14 md:w-20 md:h-20 object-contain"
         />
 
         <div className="flex items-center gap-3">
           {/* CART */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={onCartOpen}
-            className="
-              relative w-12 h-12 md:w-14 md:h-12
-              rounded-2xl
-              flex items-center justify-center
-              backdrop-blur-md bg-white/10
-              border border-white/20
-              shadow-lg
-            "
+            className="relative w-12 h-12 md:w-14 md:h-12 rounded-2xl
+            flex items-center justify-center
+            bg-white/10 border border-white/20
+            shadow-md"
           >
             <ShoppingCart className="text-white" />
-
             {count > 0 && (
-              <motion.span
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="
-                  absolute -top-2 -right-2
-                  min-w-[18px] h-[18px]
-                  bg-orange-500 text-white text-xs
-                  rounded-full flex items-center justify-center px-1
-                "
+              <span
+                className="absolute -top-2 -right-2 min-w-[18px] h-[18px]
+                bg-orange-500 text-white text-xs rounded-full
+                flex items-center justify-center px-1"
               >
                 {count}
-              </motion.span>
+              </span>
             )}
-          </motion.button>
+          </button>
 
           {/* REGISTER */}
           <Button
-            className="
-              h-12 px-6 md:px-10
-              text-sm md:text-lg font-semibold
-              backdrop-blur-md bg-white/10
-              border border-white/30
-              text-white
-              hover:bg-white/20
-              transition-all duration-300
-            "
             variant="outline"
+            className="h-12 px-6 md:px-10
+            text-sm md:text-lg font-semibold
+            text-white bg-white/10 border-white/30
+            hover:bg-orange-500 hover:border-orange-500
+            transition-colors"
           >
             Register
           </Button>
         </div>
-      </div>
+      </header>
 
-      <hr className="border-white/30" />
+      <hr className="relative z-10 border-white/20" />
 
-      {/* ===== HERO ===== */}
-      <div className="flex-1 flex items-center">
+      {/* HERO */}
+      <main className="relative z-10 flex-1 flex items-center">
         <motion.div
-          initial={{ opacity: 0, x: -60 }}
+          initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="
-            px-4 md:px-16
-            max-w-3xl
-            space-y-4
-          "
+          transition={{ duration: 0.5 }}
+          className="px-4 md:px-16 max-w-3xl space-y-5"
         >
-          <h1
-            className="
-              font-extrabold text-white
-              text-3xl sm:text-4xl md:text-6xl lg:text-6xl
-              leading-tight
-            "
-          >
+          <h1 className="font-extrabold text-white text-3xl sm:text-4xl md:text-6xl leading-tight">
             Sifatli Textil
             <span className="text-orange-400"> San'ati</span>
           </h1>
 
-          <p
-            className="
-              text-white/90
-              text-sm sm:text-base md:text-xl
-              font-medium
-            "
-          >
-            Bizning matolarimiz zamonaviy texnologiyalar va an'anaviy
-            to'quv uslublari uyg'unligida yaratiladi.
+          <p className="text-white/90 text-sm sm:text-base md:text-xl font-medium">
+            Bizning matolarimiz zamonaviy texnologiyalar va an&apos;anaviy
+            to&apos;quv uslublari uyg&apos;unligida yaratiladi.
           </p>
 
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="pt-6"
-          >
-            <Link to="/catalog">
-              <Button
-                className="
-      h-12 md:h-14 px-6 md:px-10
-      text-sm md:text-base font-semibold
-      backdrop-blur-md bg-white/10
-      border border-white/30
-      hover:bg-orange-400/80
-      transition-all text-white duration-300
-      flex items-center gap-2
-    "
-                variant="outline"
-              >
-                Katalog Ko'rish <ArrowUpRight />
-              </Button>
-            </Link>
-          </motion.div>
+          <Link to="/catalog">
+            <Button
+              className="h-12 md:h-14 px-6 md:px-10
+              text-sm md:text-base font-semibold
+              text-white bg-orange-500 hover:bg-orange-600
+              shadow-lg transition-colors
+              flex items-center gap-2"
+            >
+              Katalog Ko‘rish <ArrowUpRight />
+            </Button>
+          </Link>
         </motion.div>
-      </div>
+      </main>
     </div>
   )
 }
