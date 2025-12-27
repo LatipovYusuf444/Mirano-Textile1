@@ -1,4 +1,4 @@
-import img from "@/assets/svg/picture-tailor-s-desktop-sewing-workshop.webp"
+import img from "@/assets/svg/foto4.webp"
 import { motion } from "framer-motion"
 
 const container = {

@@ -78,7 +78,6 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
           </Button>
         </div>
       </header>
-
       <hr className="relative z-10 border-white/20" />
 
       {/* HERO */}

@@ -11,7 +11,7 @@ const testimonials = [
     name: "Akmal Rustamov",
     role: "Konsultant",
     text: "Zamonaviy texnologiyalar va professional jamoa. Extice bilan ishlash ishonchli va qulay.",
-  },
+  }, 
   {
     name: "Madina Soliyeva",
     role: "Bloger, jurnalist",
@@ -28,7 +28,6 @@ const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0 },
 }
-
 const Testimonials = () => {
   return (
     <section className="py-28 bg-gradient-to-b from-black via-[#0e0e0e] to-black text-white">
