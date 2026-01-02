@@ -25,11 +25,9 @@ const registerSchema = z.object({
 type RegisterForm = z.infer<typeof registerSchema>
 
 const Register = () => {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
-
-  // 🔵 HOME PAGEGA YO‘NALTIRISH UCHUN
-  const navigate = useNavigate()
 
   const {
     register,
@@ -44,22 +42,22 @@ const Register = () => {
 
     console.log("REGISTER DATA SENT TO BACKEND:", data)
 
-    // 🔴 REAL BACKEND UCHUN (ochib ishlatish mumkin)
-    // await fetch("https://api.sizningsayt.uz/api/register/", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(data),
-    // })
+    /**
+     * 🔴 REAL BACKEND UCHUN
+     * await fetch("https://api.sizningsayt.uz/api/register/", {
+     *   method: "POST",
+     *   headers: { "Content-Type": "application/json" },
+     *   body: JSON.stringify(data),
+     * })
+     */
 
     setTimeout(() => {
       setSuccess(true)
       setLoading(false)
 
-      // ✅ 1.5 soniyadan keyin HOME PAGEGA O‘TADI
       setTimeout(() => {
         navigate("/")
       }, 1500)
-
     }, 1000)
   }
 
@@ -87,7 +85,10 @@ const Register = () => {
             </p>
           </motion.div>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4"
+          >
             <div>
               <Input
                 placeholder="Ism"
