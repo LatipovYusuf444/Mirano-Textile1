@@ -6,7 +6,6 @@ import CartDrawer from "./components/CartDrawer"
 
 function App() {
   const [cartOpen, setCartOpen] = useState(false)
-
   return (
     <>
       <Routes>

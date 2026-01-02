@@ -1,5 +1,5 @@
 import logo from "@/assets/images/15709ad1-02fe-4017-b9b1-af49907a1976.png"
-import bgimage from "@/assets/images/bg-textile-100.webp"
+import bgimage from "@/assets/svg/bgimage.png"
 import { ArrowUpRight, ShoppingCart } from "lucide-react"
 import { Button } from "./ui/button"
 import { useSelector, shallowEqual } from "react-redux"
@@ -102,7 +102,7 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
           <Link to="/catalog">
             <Button
               className="
-                h-12 md:h-14 px-6 md:px-10
+                h-12 rounded-4xl md:h-14 px-6 md:px-10
                 text-sm md:text-base font-semibold
                 text-white bg-orange-500 hover:bg-orange-600
                 shadow-lg transition-colors
