@@ -3,6 +3,7 @@ import { useState } from "react"
 import Home from "./pages/Home"
 import Catalog from "./pages/Catalog"
 import CartDrawer from "./components/CartDrawer"
+import Register from "./components/Register"
 
 function App() {
   const [cartOpen, setCartOpen] = useState(false)
@@ -13,7 +14,11 @@ function App() {
           path="/"
           element={<Home onCartOpen={() => setCartOpen(true)} />}
         />
-        <Route path="/catalog" element={<Catalog />} />
+        <Route
+          path="/catalog"
+          element={<Catalog onCartOpen={() => setCartOpen(true)} />}
+        />
+        <Route path="/register" element={<Register />} />
       </Routes>
       {cartOpen && <CartDrawer onClose={() => setCartOpen(false)} />}
     </>

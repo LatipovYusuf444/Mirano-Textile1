@@ -8,6 +8,7 @@ import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { memo } from "react"
 
+
 const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
   const count = useSelector(
     (state: RootState) =>
@@ -39,43 +40,36 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
 
         <div className="flex items-center gap-3">
           {/* CART */}
-          <button
+          <Button
             onClick={onCartOpen}
             className="
-              relative w-12 h-12 md:w-14 md:h-12 rounded-2xl
-              flex items-center justify-center
-              bg-white/10 border border-white/20
-              shadow-md
-              will-change-transform
-            "
+    relative
+    bg-white/10-
+    border border-white/20
+    hover:bg-white/20 hover:bg-orange-500
+    rounded-full
+    p-2 h-11 w-20
+  "
           >
-            <ShoppingCart className="text-white" />
-            {count > 0 && (
-              <span
-                className="
-                  absolute -top-2 -right-2 min-w-[18px] h-[18px]
-                  bg-orange-500 text-white text-xs rounded-full
-                  flex items-center justify-center px-1
-                "
-              >
-                {count}
-              </span>
-            )}
-          </button>
+            🛒
+          </Button>
 
           {/* REGISTER */}
-          <Button
-            variant="outline"
-            className="
-              h-12 px-6 md:px-10
-              text-sm md:text-lg font-semibold
-              text-white bg-white/10 border-white/30
-              hover:bg-orange-500 hover:border-orange-500
-              transition-colors
-            "
-          >
-            Register
-          </Button>
+          <Link to="/register">
+            <Button
+              variant="outline"
+              className="
+      h-12 px-6 md:px-10
+      text-sm md:text-lg font-semibold
+      text-white bg-white/10 border-white/30
+      hover:bg-orange-500 hover:border-orange-500
+      transition-colors
+    "
+            >
+              Register
+            </Button>
+          </Link>
+
         </div>
       </header>
       <hr className="relative z-10 border-white/20" />

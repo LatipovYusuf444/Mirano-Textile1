@@ -16,8 +16,8 @@ const Home = ({ onCartOpen }: { onCartOpen: () => void }) => {
       <Main />
       <Advange />
       <Figures />
-      <Testimonials/>
-      <Footer/>
+      <Testimonials />
+      <Footer />
     </>
   )
 }
