@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { registerUser } from "@/features/auth-service";
 
 // ✅ Textile background (o'zingizni rasmingiz)
-import bg from "@/assets/images/psdd_03_06_2022_87.jpg";
+import bg from "@/assets/images/v748-toon-131.webp";
 
 const schema = z.object({
   first_name: z.string().min(2, "Ism kamida 2 ta harf bo‘lsin"),

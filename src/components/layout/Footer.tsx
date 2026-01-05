@@ -7,7 +7,7 @@ import {
   MapPin,
   ArrowUpRight,
 } from "lucide-react"
-import bgImage from "@/assets/images/bg-textile-100.webp"
+import bgImage from "@/assets/images/shirt-mockup-concept-with-plain-clothing.webp"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
