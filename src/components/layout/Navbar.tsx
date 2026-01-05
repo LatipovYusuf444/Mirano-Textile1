@@ -7,6 +7,7 @@ import type { RootState } from "@/App/store";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { memo } from "react";
+import telefonbg from "@/assets/images/telefonbg.webp"
 
 const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
   const count = useSelector(
@@ -19,15 +20,33 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
     <div className="relative min-h-screen w-full overflow-hidden flex flex-col">
       {/* ✅ Background image (responsiv) */}
       <img
+        src={telefonbg}
+        alt=""
+        aria-hidden="true"
+        className="
+    absolute inset-0 -z-10
+    h-full w-full
+   
+   
+    sm:hidden
+  "
+        loading="eager"
+        decoding="async"
+      />
+
+      {/* 🖥 DESKTOP background */}
+      <img
         src={bgimage}
         alt=""
         aria-hidden="true"
         className="
-          absolute inset-0 -z-10
-          h-full w-full object-cover
-          object-center
-          scale-[1.02]
-        "
+    absolute inset-0 -z-10
+    h-full w-full
+    object-cover
+    object-center
+    scale-[1.02]
+    hidden sm:block
+  "
         loading="eager"
         decoding="async"
       />
