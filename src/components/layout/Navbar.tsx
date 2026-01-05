@@ -1,20 +1,19 @@
-import logo from "@/assets/images/15709ad1-02fe-4017-b9b1-af49907a1976.png"
-import bgimage from "@/assets/svg/bgimage.png"
-import { ArrowUpRight, ShoppingCart } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useSelector, shallowEqual } from "react-redux"
-import type { RootState } from "@/App/store"
-import { motion } from "framer-motion"
-import { Link } from "react-router-dom"
-import { memo } from "react"
-
+import logo from "@/assets/images/15709ad1-02fe-4017-b9b1-af49907a1976.png";
+import bgimage from "@/assets/svg/bgimage.png";
+import { ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useSelector, shallowEqual } from "react-redux";
+import type { RootState } from "@/App/store";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { memo } from "react";
 
 const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
   const count = useSelector(
     (state: RootState) =>
       state.cart.items.reduce((sum, item) => sum + item.quantity, 0),
     shallowEqual
-  )
+  );
 
   return (
     <div
@@ -43,35 +42,53 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
           <Button
             onClick={onCartOpen}
             className="
-    relative
-    bg-white/10-
-    border border-white/20
-    hover:bg-white/20 hover:bg-orange-500
-    rounded-full
-    p-2 h-11 w-20
-  "
+              relative
+              bg-white/10
+              border border-white/20
+              hover:bg-white/20 hover:bg-orange-500
+              rounded-full
+              p-2 h-11 w-20
+            "
           >
             🛒
+
+            {/* ✅ count ishlatiladi — warning yo‘q */}
+            {count > 0 && (
+              <span
+                className="
+                  absolute -top-1 -right-1
+                  bg-orange-500
+                  text-black
+                  text-xs
+                  font-bold
+                  px-1.5 py-0.5
+                  rounded-full
+                "
+              >
+                {count}
+              </span>
+            )}
           </Button>
 
           {/* REGISTER */}
-          <Link to="/Register">
+          {/* ✅ route: /register bo‘lishi kerak */}
+          <Link to="/register">
             <Button
               variant="outline"
               className="
-      h-12 px-6 md:px-10
-      text-sm md:text-lg font-semibold
-      text-white bg-white/10 border-white/30
-      hover:bg-orange-500 hover:border-orange-500
-      transition-colors
-    "
+                h-12 px-6 md:px-10
+                text-sm md:text-lg font-semibold
+                text-white bg-white/10 border-white/30
+                hover:bg-orange-500 hover:border-orange-500
+                transition-colors
+              "
             >
               Register
             </Button>
           </Link>
-
         </div>
       </header>
+
       <hr className="relative z-10 border-white/20" />
 
       {/* HERO */}
@@ -109,7 +126,7 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
         </motion.div>
       </main>
     </div>
-  )
-})
+  );
+});
 
-export default Navbar
+export default Navbar;
