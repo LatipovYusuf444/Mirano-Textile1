@@ -1,39 +1,73 @@
-import { useSelector, useDispatch } from "react-redux"
-import type { RootState } from "@/App/store"
-import { clearCart } from "@/features/cart/cartSlice"
-import { sendToTelegram } from "@/lib/telegram"
-import { Button } from "./ui/button"
-import { useState } from "react"
-import { X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useMemo, useState } from "react";
+import { X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+import type { RootState } from "@/App/store";
+import { useSelector } from "react-redux";
+
+import { clearCart } from "@/features/cart/cartSlice";
+import { sendToTelegram } from "@/lib/telegram";
+import { Button } from "@/components/ui/button";
+
+// ✅ backend thunk bo‘lsa shuni ishlatamiz:
+import { createOrder } from "@/features/orders/ordersSlice";
+
+// ✅ dispatch typed bo‘lishi uchun (agar qo‘shgan bo‘lsangiz):
+import { useAppDispatch } from "@/App/hooks";
 
 interface CartDrawerProps {
-  onClose: () => void
+  onClose: () => void;
 }
 
 const CartDrawer = ({ onClose }: CartDrawerProps) => {
-  const { items } = useSelector((state: RootState) => state.cart)
-  const dispatch = useDispatch()
-  const [success, setSuccess] = useState(false)
+  const { items } = useSelector((state: RootState) => state.cart);
 
-  const total = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  )
+  // oldin: const dispatch = useDispatch()
+  const dispatch = useAppDispatch();
+
+  const [success, setSuccess] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const total = useMemo(
+    () => items.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    [items]
+  );
 
   const handleOrder = async () => {
-    // * 🔴 BACKEND INTEGRATION
-    //  * Bu joyda:
-    //  * - Telegram
-    //  * - REST API
-    //  * - Firebase
-    //  * - Admin panel
-    //  * ulanishi mumkin
-    //  */
-    await sendToTelegram(items)
-    dispatch(clearCart())
-    setSuccess(true)
-  }
+    if (items.length === 0 || submitting) return;
+
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      // 1) BACKENDGA POST (orders)
+      // backend response Order bo‘lsa: createOrder.fulfilled qaytaradi
+      await dispatch(
+        createOrder({
+          items: items.map((i) => ({
+            title: i.title,
+            price: i.price,
+            quantity: i.quantity,
+          })),
+          total,
+        })
+      ).unwrap();
+
+      // 2) Telegram (ixtiyoriy) — backend muvaffaqiyatli bo‘lgandan keyin yuboramiz
+      // agar telegram muhim bo‘lsa, buni parallel ham qilamiz
+      await sendToTelegram(items);
+
+      // 3) Cart tozalash + success UI
+      dispatch(clearCart());
+      setSuccess(true);
+    } catch (e: any) {
+      // createOrder ichida toApiError qaytargan bo‘lsak: e.message mavjud bo‘ladi
+      setError(e?.message || "Zakaz yuborishda xatolik yuz berdi");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -67,9 +101,7 @@ const CartDrawer = ({ onClose }: CartDrawerProps) => {
         >
           {/* HEADER */}
           <div className="flex justify-between items-center border-b border-white/10 pb-4">
-            <h2 className="text-xl font-semibold tracking-wide">
-              🛒 Karzinka
-            </h2>
+            <h2 className="text-xl font-semibold tracking-wide">🛒 Karzinka</h2>
             <button
               onClick={onClose}
               className="p-2 rounded-full hover:bg-white/10 transition"
@@ -85,9 +117,7 @@ const CartDrawer = ({ onClose }: CartDrawerProps) => {
                 <h2 className="text-2xl font-bold text-green-500">
                   ✅ Zakaz yuborildi
                 </h2>
-                <p className="text-white/60 mt-2">
-                  Tez orada siz bilan bog‘lanamiz
-                </p>
+                <p className="text-white/60 mt-2">Tez orada siz bilan bog‘lanamiz</p>
                 <Button className="mt-6 w-full" onClick={onClose}>
                   Yopish
                 </Button>
@@ -95,9 +125,13 @@ const CartDrawer = ({ onClose }: CartDrawerProps) => {
             )}
 
             {!success && items.length === 0 && (
-              <p className="text-white/50 text-center mt-20">
-                Karzinka bo‘sh
-              </p>
+              <p className="text-white/50 text-center mt-20">Karzinka bo‘sh</p>
+            )}
+
+            {!success && error && (
+              <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-200">
+                {error}
+              </div>
             )}
 
             {!success &&
@@ -119,9 +153,7 @@ const CartDrawer = ({ onClose }: CartDrawerProps) => {
                       {item.quantity} x ${item.price}
                     </p>
                   </div>
-                  <p className="font-semibold">
-                    ${item.price * item.quantity}
-                  </p>
+                  <p className="font-semibold">${item.price * item.quantity}</p>
                 </div>
               ))}
           </div>
@@ -136,6 +168,7 @@ const CartDrawer = ({ onClose }: CartDrawerProps) => {
 
               <Button
                 onClick={handleOrder}
+                disabled={submitting}
                 className="
                   w-full h-12
                   bg-white text-black
@@ -143,14 +176,14 @@ const CartDrawer = ({ onClose }: CartDrawerProps) => {
                   transition-all
                 "
               >
-                Zakaz berish
+                {submitting ? "Yuborilmoqda..." : "Zakaz berish"}
               </Button>
             </div>
           )}
         </motion.div>
       </motion.div>
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default CartDrawer
+export default CartDrawer;

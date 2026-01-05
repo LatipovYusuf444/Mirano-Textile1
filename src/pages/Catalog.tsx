@@ -1,21 +1,27 @@
-import ProductCard from "@/components/ProductCard"
-import { product } from "@/data/products"
-import { useNavigate } from "react-router-dom"
-import { ArrowLeft, ShoppingCart } from "lucide-react"
-import { useSelector } from "react-redux"
-import type { RootState } from "@/App/store"
+import ProductCard from "@/components/product/ProductCard";
+import { product } from "@/data/products";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft, ShoppingCart } from "lucide-react";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/App/store";
+// agar siz cartSlice’da selector yozgan bo‘lsangiz:
+// import { selectCartTotalQuantity } from "@/features/cart/cartSlice";
+
+const selectCartTotalQuantity = (state: RootState) =>
+  state.cart.items.reduce((sum, i) => sum + i.quantity, 0);
 
 interface CatalogProps {
-  onCartOpen: () => void
+  onCartOpen: () => void;
 }
 
 const Catalog = ({ onCartOpen }: CatalogProps) => {
-  const navigate = useNavigate()
-  const items = useSelector((state: RootState) => state.cart.items)
+  const navigate = useNavigate();
+
+  // oldin: const items = useSelector((state: RootState) => state.cart.items)
+  const totalQty = useSelector(selectCartTotalQuantity);
 
   return (
     <div className="bg-gradient-to-b from-black via-[#0e0e0e] to-black text-white w-full min-h-screen">
-      
       {/* TOP BAR */}
       <div className="px-4 sm:px-6 lg:px-12 pt-8 flex justify-between items-center">
         {/* BACK */}
@@ -51,7 +57,7 @@ const Catalog = ({ onCartOpen }: CatalogProps) => {
         >
           <ShoppingCart size={18} />
 
-          {items.length > 0 && (
+          {totalQty > 0 && (
             <span
               className="
                 absolute -top-1 -right-1
@@ -63,7 +69,7 @@ const Catalog = ({ onCartOpen }: CatalogProps) => {
                 rounded-full
               "
             >
-              {items.length}
+              {totalQty}
             </span>
           )}
         </button>
@@ -96,7 +102,7 @@ const Catalog = ({ onCartOpen }: CatalogProps) => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Catalog
+export default Catalog;

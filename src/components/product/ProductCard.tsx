@@ -1,17 +1,16 @@
-import { useDispatch } from "react-redux"
-import type { AppDispatch } from "@/App/store"
-import { addToCart } from "@/features/cart/cartSlice"
-import type { CartItem } from "@/features/cart/cartSlice"
-import { motion } from "framer-motion"
+import { memo, useCallback } from "react";
+import { motion } from "framer-motion";
+import { addToCart, type CartItem } from "@/features/cart/cartSlice";
+import { useAppDispatch } from "@/App/hooks";
 
-type Props = Omit<CartItem, "quantity">
+type Props = Omit<CartItem, "quantity">;
 
 const ProductCard = ({ id, title, price, image }: Props) => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch();
 
-  const handleAdd = () => {
-    dispatch(addToCart({ id, title, price, image }))
-  }
+  const handleAdd = useCallback(() => {
+    dispatch(addToCart({ id, title, price, image }));
+  }, [dispatch, id, title, price, image]);
 
   return (
     <motion.div
@@ -24,6 +23,7 @@ const ProductCard = ({ id, title, price, image }: Props) => {
           src={image}
           alt={title}
           loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-black/20" />
@@ -32,9 +32,7 @@ const ProductCard = ({ id, title, price, image }: Props) => {
       <div className="flex-1 p-5 flex flex-col justify-between">
         <div>
           <h3 className="text-lg font-semibold text-white">{title}</h3>
-          <p className="text-orange-400 font-bold mt-2 text-xl">
-            ${price}
-          </p>
+          <p className="text-orange-400 font-bold mt-2 text-xl">${price}</p>
         </div>
 
         <button
@@ -45,7 +43,7 @@ const ProductCard = ({ id, title, price, image }: Props) => {
         </button>
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default memo(ProductCard);

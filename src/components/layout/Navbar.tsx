@@ -1,7 +1,7 @@
 import logo from "@/assets/images/15709ad1-02fe-4017-b9b1-af49907a1976.png"
 import bgimage from "@/assets/svg/bgimage.png"
 import { ArrowUpRight, ShoppingCart } from "lucide-react"
-import { Button } from "./ui/button"
+import { Button } from "@/components/ui/button"
 import { useSelector, shallowEqual } from "react-redux"
 import type { RootState } from "@/App/store"
 import { motion } from "framer-motion"
@@ -55,7 +55,7 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
           </Button>
 
           {/* REGISTER */}
-          <Link to="/register">
+          <Link to="/Register">
             <Button
               variant="outline"
               className="
