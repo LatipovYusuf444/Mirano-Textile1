@@ -1,4 +1,4 @@
-import img from "@/assets/svg/foto4.webp"
+import img from "@/assets/images/t shirt.webp"
 import { motion } from "framer-motion"
 
 const container = {

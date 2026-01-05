@@ -1,5 +1,5 @@
 import logo from "@/assets/images/15709ad1-02fe-4017-b9b1-af49907a1976.png";
-import bgimage from "@/assets/svg/bgimage.png";
+import bgimage from "@/assets/images/bgimagesss.webp";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSelector, shallowEqual } from "react-redux";

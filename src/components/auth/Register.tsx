@@ -6,7 +6,6 @@ import { Mail, Phone, User2, Sparkles } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
 // Agar siz registerUser service ishlatayotgan bo‘lsangiz, ulab qo‘yamiz:
 import { registerUser } from "@/features/auth-service";
 
