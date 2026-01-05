@@ -16,16 +16,31 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
   );
 
   return (
-    <div
-      className="relative min-h-screen w-full bg-cover bg-center bg-no-repeat flex flex-col will-change-transform"
-      style={{ backgroundImage: `url(${bgimage})` }}
-    >
-      {/* OVERLAY */}
-      <div className="absolute inset-0 bg-black/50 pointer-events-none" />
+    <div className="relative min-h-screen w-full overflow-hidden flex flex-col">
+      {/* ✅ Background image (responsiv) */}
+      <img
+        src={bgimage}
+        alt=""
+        aria-hidden="true"
+        className="
+          absolute inset-0 -z-10
+          h-full w-full object-cover
+          object-center
+          scale-[1.02]
+        "
+        loading="eager"
+        decoding="async"
+      />
+
+      {/* ✅ Overlay (telefonlarda kuchliroq, text aniq ko‘rinsin) */}
+      <div className="absolute inset-0 -z-10 bg-black/60 sm:bg-black/50 pointer-events-none" />
+      {/* ✅ Past-burchaklarda vignette: luxury ko‘rinish + o‘qilishi oson */}
+      <div className="absolute inset-0 -z-10 pointer-events-none [background:radial-gradient(circle_at_30%_20%,rgba(255,180,80,0.10),transparent_45%),radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.06),transparent_55%)]" />
+      <div className="absolute inset-0 -z-10 pointer-events-none opacity-50 [background:radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.85))]" />
 
       {/* HEADER */}
       <header className="relative z-10 flex items-center justify-between px-4 md:px-10 py-5">
-        {/* LOGO */}
+        {/* LOGO (responsiv: tel kichik, desktop katta) */}
         <motion.img
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -33,8 +48,9 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
           transition={{ duration: 0.3 }}
           src={logo}
           alt="Mirano Logo"
-          className="w-14 h-14 md:w-20 md:h-20 object-contain"
+          className="w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 object-contain"
           loading="lazy"
+          decoding="async"
         />
 
         <div className="flex items-center gap-3">
@@ -51,8 +67,6 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
             "
           >
             🛒
-
-            {/* ✅ count ishlatiladi — warning yo‘q */}
             {count > 0 && (
               <span
                 className="
@@ -71,12 +85,11 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
           </Button>
 
           {/* REGISTER */}
-          {/* ✅ route: /register bo‘lishi kerak */}
           <Link to="/register">
             <Button
               variant="outline"
               className="
-                h-12 px-6 md:px-10
+                h-11 sm:h-12 px-5 sm:px-6 md:px-10
                 text-sm md:text-lg font-semibold
                 text-white bg-white/10 border-white/30
                 hover:bg-orange-500 hover:border-orange-500
@@ -98,7 +111,7 @@ const Navbar = memo(({ onCartOpen }: { onCartOpen: () => void }) => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="px-4 md:px-16 max-w-3xl space-y-5 will-change-transform"
+          className="px-4 md:px-16 max-w-3xl space-y-5"
         >
           <h1 className="font-extrabold text-white text-3xl sm:text-4xl md:text-6xl leading-tight">
             Sifatli Textil
