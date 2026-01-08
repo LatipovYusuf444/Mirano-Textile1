@@ -2,10 +2,10 @@ import img1 from "@/assets/images/11.webp"
 import img2 from "@/assets/images/12.webp"
 import img3 from "@/assets/images/10.webp"
 
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, type Variants } from "framer-motion"
 import { useEffect, useState } from "react"
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 1 },
   visible: {
     opacity: 1,
@@ -13,7 +13,7 @@ const container = {
   },
 }
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
