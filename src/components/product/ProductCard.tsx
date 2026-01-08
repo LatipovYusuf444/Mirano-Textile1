@@ -1,30 +1,31 @@
-import { memo, useCallback } from "react";
-import { motion } from "framer-motion";
-import { addToCart, type CartItem } from "@/features/cart/cartSlice";
-import { useAppDispatch } from "@/App/hooks";
+import { memo, useCallback } from "react"
+import { motion } from "framer-motion"
+import { addToCart, type CartItem } from "@/features/cart/cartSlice"
+import { useAppDispatch } from "@/App/hooks"
 
-type Props = Omit<CartItem, "quantity">;
+type Props = Omit<CartItem, "quantity">
 
 const ProductCard = ({ id, title, price, image }: Props) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   const handleAdd = useCallback(() => {
-    dispatch(addToCart({ id, title, price, image }));
-  }, [dispatch, id, title, price, image]);
+    dispatch(addToCart({ id, title, price, image }))
+  }, [dispatch, id, title, price, image])
 
   return (
     <motion.div
       whileHover={{ y: -8, scale: 1.03 }}
       transition={{ type: "spring", stiffness: 200, damping: 18 }}
-      className="h-full rounded-3xl border border-white/10 bg-white/7 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col group"
+      className="h-full rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col group"
     >
-      <div className="relative h-[75%] overflow-hidden">
+      {/* ✅ IMAGE: aspect lock */}
+      <div className="relative w-full aspect-[4/5] overflow-hidden">
         <img
           src={image}
           alt={title}
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-black/20" />
       </div>
@@ -43,7 +44,7 @@ const ProductCard = ({ id, title, price, image }: Props) => {
         </button>
       </div>
     </motion.div>
-  );
-};
+  )
+}
 
-export default memo(ProductCard);
+export default memo(ProductCard)
