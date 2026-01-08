@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
-import img1 from "@/assets/images/elegant-old-woman-sitting-studio-sew-cloth.webp";
-import img2 from "@/assets/images/paxta.webp";
+import img1 from "@/assets/images/Fiutbolka.kok.webp";
+import img2 from "@/assets/images/futbolka.bejiviy.webp";
 import { ArrowUpRight } from "lucide-react";
 
 const fadeUp = {

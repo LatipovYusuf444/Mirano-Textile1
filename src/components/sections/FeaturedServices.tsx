@@ -68,7 +68,7 @@ const FeaturedServices = () => {
             02. Featured Services
           </p>
           <h2 className="text-3xl md:text-5xl font-extrabold text-white mt-2">
-            Bizning Premium Xizmatlar
+            Bizning Xizmatlar
           </h2>
         </motion.div>
 

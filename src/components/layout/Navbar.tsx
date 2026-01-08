@@ -1,4 +1,4 @@
-import logo from "@/assets/images/15709ad1-02fe-4017-b9b1-af49907a1976.png";
+import logo from "@/assets/images/mirano-bg-text.webp";
 import bgimage from "@/assets/images/bgimagesss.webp";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";

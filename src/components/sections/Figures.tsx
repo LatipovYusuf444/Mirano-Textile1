@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
-import bgImage from "@/assets/images/view-football-player-t-shirt.webp"
+import bgImage from "@/assets/images/bgimagesss.webp"
 
 interface CounterProps {
   target: number
